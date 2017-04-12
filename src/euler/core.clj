@@ -69,10 +69,26 @@
 (defn longest-collatz-sequence []
   (->> (range 1 1000000)
     (reduce (fn [cache int]
-              (collatz-sequence-cache int cache)) {})
+              (collatz-sequence-cache int cache)) (i/int-map))
     (sort-by second >)
     (first)))
 
 (comment
   (-> (c/bench (longest-collatz-sequence) :verbose)
     (c/with-progress-reporting)))
+
+;; Benchmarks using a normal clojure.lang.PersistentHashMap
+;; Execution time sample mean : 11.475095 sec
+;; Execution time mean : 11.478433 sec
+;; Execution time sample std-deviation : 700.149982 ms
+;; Execution time std-deviation : 719.053496 ms
+;; Execution time lower quantile : 10.818154 sec ( 2.5%)
+;; Execution time upper quantile : 13.087033 sec (97.5%)
+
+;; Benchmarks using a clojure.data.int_map.PersistentIntMap
+;; Execution time sample mean : 7.547974 sec
+;; Execution time mean : 7.550165 sec
+;; Execution time sample std-deviation : 517.021584 ms
+;; Execution time std-deviation : 521.005504 ms
+;; Execution time lower quantile : 7.093406 sec ( 2.5%)
+;; Execution time upper quantile : 9.095200 sec (97.5%)
