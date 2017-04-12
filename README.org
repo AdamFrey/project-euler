@@ -1,1 +1,4 @@
 * Project Euler
+** Running Tests
+- [[https://github.com/boot-clj/boot#install][Install Boot]]
+- Run ~boot run-tests~
