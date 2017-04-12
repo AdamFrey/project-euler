@@ -24,7 +24,7 @@
                    (filter #(palindrome? (* x %)) (reverse (range x 1000))))]
         (let [product (* x y)]
           (if (< max product)
-            (recur (inc x) (* x y))
+            (recur (inc x) product)
             (recur (inc x) max)))
         ;; no palindromes
         (recur (inc x) max)))))
