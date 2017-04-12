@@ -20,12 +20,14 @@
          max 0]
     (if (<= 1000 x)
       max
-      (if-let [y (first  ;; Someday we could use "seek" here? http://dev.clojure.org/jira/browse/CLJ-2056
-                   (filter #(palindrome? (* x %)) (reverse (range x 1000))))]
-        (let [product (* x y)]
-          (if (< max product)
-            (recur (inc x) product)
-            (recur (inc x) max)))
+      (if-let [product (->> (range x 1000)
+                         (reverse)
+                         (map #(* x %))
+                         (filter palindrome?) ;; Someday we could use "seek" here? http://dev.clojure.org/jira/browse/CLJ-2056
+                         (first))]
+        (if (< max product)
+          (recur (inc x) product)
+          (recur (inc x) max))
         ;; no palindromes
         (recur (inc x) max)))))
 
