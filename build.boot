@@ -4,5 +4,11 @@
     [criterium "0.4.4"]
     [org.clojure/data.int-map "0.2.4"]
     [metosin/boot-alt-test "0.3.1" :scope "test"]]
-  :source-paths #{"src"})
+  :source-paths #{"src" "test"})
+
+(require
+  '[metosin.boot-alt-test :refer [alt-test]])
+
+(deftask run-tests []
+  (alt-test))
 
